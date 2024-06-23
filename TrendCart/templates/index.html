@@ -4,25 +4,55 @@
 
 <body>
 <style>
-.out-of-stock-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
+    .out-of-stock-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
 
-.overlay-text {
-    color: red;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
+    .overlay-text {
+        color: red;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .card-custom {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card-img-wrapper {
+        position: relative;
+        height: 250px; /* Adjusted fixed height for images */
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        height: 100%;
+        width: 100%;
+        object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+    }
+
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .pagination {
+        margin-top: 20px;
+    }
 </style>
+
     <!-- Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -54,37 +84,36 @@
     <!-- Trending Items -->
     <div class="container mt-5">
         <div class="tt">
-            <h1 class="text-center mb-4 trending-title">Trending Items </h1>
+            <h1 class="text-center mb-4 trending-title">Trending Items</h1>
         </div>
 
         <div class="row">
-    {% for product in page_obj %}
-        <div class="col-md-4 mb-4">
-            <div class="card card-custom">
-                <div class="card-img-wrapper position-relative">
-                    <img src="{{ product.images.url }}" class="card-img-top" alt="{{ product.name }}">
-                    {% if product.stock == 0 %}
-                        <div class="out-of-stock-overlay">
-                            <div class="overlay-text">PRODUCT IS OUT OF STOCK</div>
+            {% for product in page_obj %}
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom">
+                        <div class="card-img-wrapper position-relative">
+                            <img src="{{ product.images.url }}" class="card-img-top" alt="{{ product.name }}">
+                            {% if product.stock == 0 %}
+                                <div class="out-of-stock-overlay">
+                                    <div class="overlay-text">PRODUCT IS OUT OF STOCK</div>
+                                </div>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">
+                                <strong>₹{{ product.price }}</strong>
+                                {% if product.discounted_price %}
+                                    <span class="text-muted"><s>₹{{ product.original_price }}</s></span>
+                                    <span class="badge bg-success">{{ product.discount_percentage }}% off</span>
+                                {% endif %}
+                            </p>
+                            <a href="{% url 'Product:product_detail' product.id %}" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">
-                        <strong>₹{{ product.price }}</strong>
-                        {% if product.discounted_price %}
-                            <span class="text-muted"><s>₹{{ product.original_price }}</s></span>
-                            <span class="badge bg-success">{{ product.discount_percentage }}% off</span>
-                        {% endif %}
-                    </p>
-                    <a href="{% url 'Product:product_detail' product.id %}" class="btn btn-primary">Details</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
-
 
         <!-- Pagination -->
         <nav aria-label="Page navigation example">
