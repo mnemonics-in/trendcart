@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <h2>Order Confirmation</h2>
+    <p>Dear {{ user.first_name }},</p>
+    <p>Thank you for your order. Your order has been successfully placed with the following details:</p>
+    <ul>
+        <li>Order ID: {{ order.id }}</li>
+        <li>Order Date: {{ order.created_at }}</li>
+<!--        <li>Total Amount: ${{ order.total }}</li>-->
+        <!-- Add more details as needed -->
+    </ul>
+    <p>We will notify you once your order has been processed and shipped.</p>
+    <p>Thank you for shopping with us!</p>
+</body>
+</html>

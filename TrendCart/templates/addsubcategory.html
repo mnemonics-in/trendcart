@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Category Form</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+
+                            <select class="form-control"  id="category" name="category" required >
+                                <option value="">Select a category</option>
+                                 {% for i in cn %}
+                                <option value="{{i.id}}" >{{i.name}}</option>
+                                 {% endfor %}
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Category" name="sname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text"  maxlength="100" minlength="5" class="form-control" placeholder="Enter Category Description" name="sdesc">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Upload Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

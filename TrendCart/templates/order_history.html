@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load static %}
+
+<body>
+<div class="container mt-5 mb-5">
+    <h2>Order History</h2>
+    <div class="row">
+        {% if order_items %}
+            {% for order_item in order_items %}
+                <div class="col-md-12">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Order #{{ order_item.order.id }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li><strong>Product Name:</strong> {{ order_item.product_name }}</li>
+                                <li><strong>Product Price:</strong> ₹{{ order_item.product_price }}</li>
+                                <li><strong>Quantity:</strong> {{ order_item.quantity }}</li>
+                                <li><strong>Order Date:</strong> {{ order_item.order_date }}</li>
+                                {% if order_item.order.order_status == 'Processing' %}
+                                <li><strong>Order Status:</strong> <span class="badge badge-danger">{{ order_item.order.order_status }}</span></li>
+                                {% elif order_item.order.order_status == 'Shipped' %}
+                                 <li><strong>Order Status:</strong> <span class="badge badge-warning">{{ order_item.order.order_status }}</span></li>
+                                {% else %}
+                                <li><strong>Order Status:</strong> <span class="badge badge-success">{{ order_item.order.order_status }}</span></li>
+                                {% endif %}
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <p>No order history found.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+</body>
+
+
+
+
+{% endblock %}

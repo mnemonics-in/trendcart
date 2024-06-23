@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search Results - TrendCart{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Search Results</h1>
+    {% if query %}
+        <p>Results for "{{ query }}":</p>
+    {% endif %}
+    {% if results %}
+        <div class="row">
+            {% for product in results %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ product.images.url  }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.desc|truncatewords:20 }}</p>
+                            <a href="{% url 'Product:product_detail' product.id %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found for your search query.</p>
+    {% endif %}
+</div>
+{% endblock %}

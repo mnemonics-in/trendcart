@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TrendCart Website{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'css/style1.css' %}">-->
+    <script src="{% static 'js/script.js' %}"></script>
+     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content-wrapper {
+            flex: 1;
+        }
+        footer {
+            padding: 20px 0;
+            background-color: #343a40; /* bg-dark */
+            color: #ffffff; /* text-white */
+        }
+    </style>
+</head>
+<body>
+<div class="content-wrapper">
+  {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <!-- Superuser Navbar -->
+            <nav class=" navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'Accounts:admin_dashboard' %}">TrendCart</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'Accounts:admin_dashboard' %}">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Category</a>
+                                <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                    <a class="dropdown-item" href="{% url 'Category:addcategory' %}">Add Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:viewmaincategory' %}">View Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:viewupdatemaincategory' %}">Update Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:deletemaincategory' %}">Delete Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:addsubcategory' %}">Add Sub Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:viewsubcategory' %}">View Sub Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:viewupdatesubcategory' %}">Update Sub Category</a>
+                                    <a class="dropdown-item" href="{% url 'Category:deletesubcategory' %}">Delete Sub Category</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="productDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Product</a>
+                                <div class="dropdown-menu" aria-labelledby="productDropdown">
+                                    <a class="dropdown-item" href="{% url 'Product:addproduct' %}">Add Product</a>
+                                    <a class="dropdown-item" href="{% url 'Product:viewproducts' %}">View Product</a>
+                                    <a class="dropdown-item" href="{% url 'Product:viewupdateproduct' %}">Update Product</a>
+                                    <a class="dropdown-item" href="{% url 'Product:deleteproduct' %}">Delete Product</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
+                                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="{% url 'Accounts:user_list' %}">View User</a>
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="orderDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Order</a>
+                                <div class="dropdown-menu" aria-labelledby="orderDropdown">
+                                    <a class="dropdown-item" href="{% url 'Order:order_list' %}">Order View</a>
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="emailDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Email</a>
+                                <div class="dropdown-menu" aria-labelledby="emailDropdown">
+                                    <a class="dropdown-item" href="{% url 'Email:send_custom_email' %}">Send Mail</a>
+
+                                </div>
+                            </li>
+                        </ul>
+                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item text-white">
+                                <a class="nav-link text-white" href="{% url 'Accounts:user_logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% else %}
+            <!-- User Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand text-white" href="{% url 'Accounts:index' %}">TrendCart</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'Accounts:index' %}">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+
+                                      {% for i in links %}
+                                    <a class="dropdown-item" href="{% url 'Product:tv_app_ele_productlist' i.id %} ">{{i.name}}</a>
+
+                                         {% endfor %}
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Product:product_list' %}">Shop</a>
+                        </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#">About Us</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#">Contact Us</a>-->
+<!--                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'Cart:cart' %}">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'Order:order_history' %}">Order History</a>
+                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="{% url 'Accounts:user_logout' %}">Profile</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="{% url 'Accounts:user_logout' %}">Logout</a>-->
+<!--                            </li>-->
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'Search:search_results' %}">
+                                     {% csrf_token %}
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="S" aria-label="Search" required>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'Accounts:profile' %}">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{% url 'Accounts:user_logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endif %}
+    {% else %}
+        <!-- Normal Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'Accounts:index' %}">TrendCart</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'Accounts:index' %}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                         <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                      {% for i in links %}
+                                    <a class="dropdown-item " href="{% url 'Product:tv_app_ele_productlist' i.id %} ">{{i.name}}</a>
+
+                                         {% endfor %}
+                                </div>
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Product:product_list' %}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Accounts:about_us' %}">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Accounts:contact_us' %}">Contact Us</a>
+                        </li>
+
+
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'Search:search_results' %}">
+                                     {% csrf_token %}
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="S" aria-label="Search" required>
+                                    <button class="btn btn-outline-success btn-light my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Accounts:login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{% url 'Accounts:signup' %}">Register</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    {% endif %}
+
+
+
+
+ </div>
+
+<div class="container mt-5 mb-5">
+        {% block content %}
+
+
+
+        {% endblock %}
+    </div>
+
+<!--    <footer class="bg-dark text-white pt-4">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-4">-->
+<!--                    <h5>About TrendCart</h5>-->
+<!--                    <p>TrendCart is your go-to online store for the latest trends in electronics, fashion, and more. We offer a wide range of products to cater to all your needs.</p>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <h5>Quick Links</h5>-->
+<!--                    <ul class="list-unstyled">-->
+<!--                        <li><a href="#" class="text-white">Home</a></li>-->
+<!--                        <li><a href="#" class="text-white">About Us</a></li>-->
+<!--                        <li><a href="#" class="text-white">Contact Us</a></li>-->
+<!--                        <li><a href="#" class="text-white">Privacy Policy</a></li>-->
+<!--                        <li><a href="#" class="text-white">Terms of Service</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div class="col-md-4">-->
+<!--                    <h5>Contact Us</h5>-->
+<!--                    <address>-->
+<!--                        <strong>TrendCart Inc.</strong><br>-->
+<!--                        1234 Trend villa<br>-->
+<!--                        kochi, AA 99999<br>-->
+<!--                        <abbr title="Phone">P:</abbr> (123) 456-7890<br>-->
+<!--                        <abbr title="Email">E:</abbr> info@trendcart.com-->
+<!--                    </address>-->
+<!--                    <ul class="list-unstyled list-inline">-->
+<!--                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-facebook"></i></a></li>-->
+<!--                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-twitter"></i></a></li>-->
+<!--                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-instagram"></i></a></li>-->
+<!--                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-linkedin"></i></a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row mt-3">-->
+<!--                <div class="col-md-12 text-center">-->
+<!--                    <p>&copy; 2024 TrendCart. All Rights Reserved.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </footer>-->
+ <footer class="bg-dark text-white pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About TrendCart</h5>
+                    <p>TrendCart is your go-to online store for the latest trends in electronics, fashion, and more. We offer a wide range of products to cater to all your needs.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        <strong>TrendCart Inc.</strong><br>
+                        1234 Trend Villa<br>
+                        Kochi, AA 99999<br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890<br>
+                        <abbr title="Email">E:</abbr> info@trendcart.com
+                    </address>
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#" class="text-white"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Newsletter Signup</h5>
+                    <form>
+                        <div class="form-group">
+                            <label for="newsletter-email">Email address</label>
+                            <input type="email" class="form-control" id="newsletter-email" placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <p>&copy; 2024 TrendCart. All Rights Reserved.</p>
+                    <p>Designed by TrendCart Web Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
+

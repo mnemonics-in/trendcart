@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-bottom:100px;">
+
+<div class="container mt-5">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Description</th>
+        <th scope="col">Product Image</th>
+        <th scope="col">Product Price</th>
+        <th scope="col">Product Category</th>
+        <th scope="col">Product Stock</th>
+        <th scope="col">Product Available</th>
+
+      </tr>
+    </thead>
+    <tbody>
+     {% for i in vp %}
+
+      <tr>
+          <td>{{i.name}}</td>
+          <td>{{i.desc}}</td>
+          <td><img src="{{i.images.url}}" alt="Sub Category Cover" style="width: 50px; height: 50px;"></td>
+          <td>{{i.price}}</td>
+          <td>{{i.subcategory}}</td>
+          <td>{{i.stock}}</td>
+<!--          <td>{{i.available}}</td>-->
+
+
+          <td>
+               {% if i.available == True %}
+                Yes
+            {% else %}
+                No
+            {% endif %}
+
+           </td>
+
+      </tr>
+{% endfor %}
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+
+
+{% endblock %}

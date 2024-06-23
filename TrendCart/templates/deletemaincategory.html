@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container"  style="margin-bottom:150px">
+
+<div class="container mt-5">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Category Name</th>
+        <th scope="col">Category Description</th>
+           <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for i in v %}
+
+      <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.desc}}</td>
+          <td><a href="{% url 'Category:delmaincategory' i.id %}" class="btn btn-danger" >Delete</td>
+      </tr>
+{% endfor %}
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+
+{% endblock %}

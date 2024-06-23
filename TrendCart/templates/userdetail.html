@@ -1,0 +1,33 @@
+ {% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header">
+                <h1>User Detail for {{ user.username }}</h1>
+            </div>
+            <div class="card-body">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Date Joined:</strong> {{ user.date_joined }}</p>
+                <p><strong>Status:</strong>
+                    {% if user.is_active %}
+                        <span class="badge badge-success">Active</span>
+                    {% else %}
+                        <span class="badge badge-secondary">Inactive</span>
+                    {% endif %}
+                </p>
+                <div class="mt-3">
+                    {% if user.is_active %}
+                        <a href="{% url 'Accounts:deactivate_user' user.id %}" class="btn btn-warning">Deactivate</a>
+                    {% endif %}
+                    <a href="{% url 'Accounts:delete_user' user.id %}" class="btn btn-danger">Delete</a>
+                    <a href="{% url 'Accounts:user_list' %}" class="btn btn-secondary">Back to User List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+ {% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .dashboard-heading {
+    background-color: #343a40; /* Dark background */
+    padding: 30px; /* Add some padding for spacing */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.dashboard-heading h1 {
+    font-size: 2.5rem; /* Increase font size */
+    font-weight: bold; /* Make the text bold */
+    margin: 0; /* Remove default margin */
+    color: #fff; /* Ensure text color is white */
+    letter-spacing: 1px; /* Slightly increase letter spacing */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+}
+
+</style>
+<div class="container mt-5">
+
+
+    <div class="container mt-4">
+       <div class="dashboard-heading mx-auto mb-5">
+        <h1 class="text-center text-white">Admin Dashboard</h1>
+         </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <p class="card-text">{{ total_users }}</p>
+                         <a href="{% url 'Accounts:user_list' %}" class="btn btn-light">View Users</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Orders</h5>
+                        <p class="card-text">{{ total_orders }}</p>
+                        <a href="{% url 'Order:order_list' %}" class="btn btn-light">View Orders</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Products</h5>
+                        <p class="card-text">{{ total_products }}</p>
+                         <a href="{% url 'Product:viewproducts' %}" class="btn btn-light">View Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-danger">
+                    <div class="card-body">
+                        <h5 class="card-title">Pending Orders</h5>
+                        <p class="card-text">{{ pending_orders }}</p>
+                         <a href="{% url 'Order:order_list' %}" class="btn btn-light">View Pending Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title">Out of Stock Products</h5>
+                        <p class="card-text">{{ out_of_stock_products }}</p>
+                         <a href=" {% url 'Product:out_of_stock_products' %}" class="btn btn-light">View Out Of Stock Products</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

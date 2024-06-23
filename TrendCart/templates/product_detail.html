@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.images.url }}" class="img-fluid" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.desc }}</p>
+            <p><strong>Price: &#8377;{{ product.price }}</strong></p>
+
+            {% if product.stock == 0 %}
+                <span class="btn btn-danger">OUT OF STOCK!</span>
+            {% elif cart_item and cart_item.quantity >= product.stock %}
+                <span class="btn btn-danger">MAXIMUM STOCK REACHED!</span>
+            {% else %}
+                <a href="{% url 'Cart:add_to_cart' product.id %}" class="btn btn-primary">Add To Cart</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container mt-5 mb-5">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-6">-->
+<!--            <img src="{{ product.images.url }}" class="img-fluid" alt="{{ product.name }}">-->
+<!--        </div>-->
+<!--        <div class="col-md-6">-->
+<!--            <h1>{{ product.name }}</h1>-->
+<!--            <p>{{ product.desc }}</p>-->
+<!--            <p><strong>Price: &#8377;{{ product.price }}</strong></p>-->
+<!--            &lt;!&ndash; <button class="btn btn-primary">Add to Cart</button> &ndash;&gt;-->
+<!--            {% if product.stock == 0 %}-->
+<!--            <span class="btn btn-danger">OUT OF STOCK!</span>-->
+<!--            {% else %}-->
+<!--            <a href="{% url 'Cart:add_to_cart' product.id %}" class="btn btn-primary">Add To Cart</a>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+
+
+{% endblock %}

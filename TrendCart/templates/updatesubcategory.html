@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container-category {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+        .form-title-category {
+            margin-bottom: 20px;
+        }
+        .form-control-category {
+            margin-bottom: 15px;
+        }
+        .category-bottom{
+        margin-bottom: 100px;
+        }
+    </style>
+<div class="container category-bottom">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container form-container-category">
+                <h4 class="form-title text-center form-title-category">Update Category</h4>
+                <form method="POST" action="updatesubrecord/{{ v.id }}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="category">Main Category</label>
+                        <select class="form-control form-control-category" id="category" name="category" required>
+                            <option value="{{v.maincategory}}">{{v.maincategory}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sname">Category Name</label>
+                        <input type="text" class="form-control form-control-category" id="sname" placeholder="Category Name" name="sname" value="{{v.sname}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="sdesc">Category Description</label>
+                        <input type="text" class="form-control form-control-category" id="sdesc" maxlength="100" minlength="10" placeholder="Category Description" name="sdesc" value="{{v.sdesc}}">
+                    </div>
+                       <div class="form-group">
+                            <label for="image">Upload Image</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+                    <button type="submit" class="btn btn-primary btn-block">Update Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container mt-5">-->
+<!--  <form method="POST" action="updatesubrecord/{{ v.id }}">-->
+<!--    {% csrf_token %}-->
+<!--    <div class="form-group">-->
+<!--      <label for="category">Main Category</label>-->
+<!--      <select class="form-control" id="category" name="category" required>-->
+<!--        <option value="{{v.maincategory}}">{{v.maincategory}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sname">Category Name</label>-->
+<!--      <input type="text" class="form-control" id="sname" name="sname" placeholder="Category Name" value="{{v.sname}}" required>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sdesc">Category Description</label>-->
+<!--      <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Category Description" maxlength="100" minlength="10" value="{{v.sdesc}}" required>-->
+<!--      <small id="sdescHelp" class="form-text text-muted">Description should be between 10 and 100 characters.</small>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-primary">Update Category</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+
+
+
+
+
+<!--<div class="container">-->
+<!--  <form method="POST" action="updatesubrecord/{{ v.id }}" >-->
+<!--      {% csrf_token %}-->
+<!--       <select class="form-control"  id="category" name="category" required >-->
+<!--                                <option value="{{v.maincategory}}" >{{v.maincategory}}</option>-->
+<!--                            </select>-->
+<!--      <input type="text" class="form-control" placeholder="Category Name" name="sname" value="{{v.sname}}">-->
+<!--      <input type="text"  maxlength="100" minlength="10" class="form-control" placeholder="Category Description" name="sdesc" value="{{v.sdesc}}">-->
+<!--&lt;!&ndash;      <textarea class="form-control" placeholder="Category Description" name="desc"  value="{{v.desc}}"></textarea>&ndash;&gt;-->
+
+<!--      <button type="Update" class="btn btn-primary">Update Category</button>-->
+<!--  </form>-->
+
+<!--</div>-->
+
+
+{% endblock %}

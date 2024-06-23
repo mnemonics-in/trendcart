@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container-category {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+        .form-title-category {
+            margin-bottom: 20px;
+        }
+        .form-control-category {
+            margin-bottom: 15px;
+        }
+        .category-bottom{
+        margin-bottom: 100px;
+        }
+    </style>
+<div class="container category-bottom">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="form-container form-container-category">
+                <h4 class="form-title text-center form-title-category">Update Category</h4>
+                <form method="POST" action="updateproductrecord/{{ vp.id }}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" class="form-control form-control-category" id="name" placeholder="Product Name" name="product_name" value="{{vp.name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Prdouct Description</label>
+                        <input type="text" class="form-control form-control-category" id="desc" maxlength="1000" minlength="10" placeholder="Prdouct Description" name="product_description" value="{{vp.desc}}">
+                    </div>
+                       <div class="form-group">
+                            <label for="images">Upload Image</label>
+                            <input type="file" class="form-control" id="images" name="product_image">
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Product Price</label>
+                        <input type="number" class="form-control form-control-category" id="price" placeholder="Product Price" name="product_price" value="{{vp.price}}">
+                    </div>
+                     <div class="form-group">
+                        <label for="productCategory">Product Category</label>
+                          <input type="text" class="form-control form-control-category" id="productCategory" maxlength="10" minlength="5" placeholder="Product Category" name="product_category" value="{{vp.subcategory}}">
+
+<!--                        <select class="form-control" id="productCategory" name="product_category" required>-->
+
+<!--                            <option value="{{vp.id}}">{{vp.subcategory}}</option>-->
+
+<!--                        </select>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Product Stock</label>
+                        <input type="number" class="form-control" id="productStock" name="product_stock" placeholder="Enter product stock"  value="{{vp.stock}}"required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productAvailable">Product Available</label>
+                          <input type="text" class="form-control form-control-category" id="productAvailable" maxlength="5" minlength="4" placeholder="Prdouct Available" name="product_available" value="{{vp.available}}">
+
+<!--                        <select class="form-control" id="productAvailable" name="product_available" value="{{vp.available}}" required>-->
+<!--                            <option value="{{vp.available}}}">{{vp.available}}</option>-->
+
+<!--                        </select>-->
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-primary btn-block">Update Product</button>
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="container mt-5">-->
+<!--  <form method="POST" action="updatesubrecord/{{ v.id }}">-->
+<!--    {% csrf_token %}-->
+<!--    <div class="form-group">-->
+<!--      <label for="category">Main Category</label>-->
+<!--      <select class="form-control" id="category" name="category" required>-->
+<!--        <option value="{{v.maincategory}}">{{v.maincategory}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sname">Category Name</label>-->
+<!--      <input type="text" class="form-control" id="sname" name="sname" placeholder="Category Name" value="{{v.sname}}" required>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="sdesc">Category Description</label>-->
+<!--      <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Category Description" maxlength="100" minlength="10" value="{{v.sdesc}}" required>-->
+<!--      <small id="sdescHelp" class="form-text text-muted">Description should be between 10 and 100 characters.</small>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-primary">Update Category</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+
+
+
+
+
+<!--<div class="container">-->
+<!--  <form method="POST" action="updatesubrecord/{{ v.id }}" >-->
+<!--      {% csrf_token %}-->
+<!--       <select class="form-control"  id="category" name="category" required >-->
+<!--                                <option value="{{v.maincategory}}" >{{v.maincategory}}</option>-->
+<!--                            </select>-->
+<!--      <input type="text" class="form-control" placeholder="Category Name" name="sname" value="{{v.sname}}">-->
+<!--      <input type="text"  maxlength="100" minlength="10" class="form-control" placeholder="Category Description" name="sdesc" value="{{v.sdesc}}">-->
+<!--&lt;!&ndash;      <textarea class="form-control" placeholder="Category Description" name="desc"  value="{{v.desc}}"></textarea>&ndash;&gt;-->
+
+<!--      <button type="Update" class="btn btn-primary">Update Category</button>-->
+<!--  </form>-->
+
+<!--</div>-->
+
+
+{% endblock %}

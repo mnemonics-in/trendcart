@@ -1,0 +1,4 @@
+Operations to perform:
+  Apply all migrations: Accounts, Category, admin, auth, contenttypes, sessions
+Running migrations:
+  Applying Category.0002_remove_subcategory_subcover... OK

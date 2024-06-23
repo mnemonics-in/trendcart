@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    <div class="container mt-5 mb-5">
+        <h1 class="text-center">Update Order Status</h1>
+        <form method="post" action="{% url 'Order:update_order_status' order.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label><strong>Order ID:</strong> {{ order.id }}</label>
+            </div>
+            <div class="form-group">
+                <label><strong>Current Status:</strong> {{ order.order_status }}</label>
+            </div>
+            <div class="form-group">
+                <label><strong>Update Status:</strong></label>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="processing" name="order_status" value="Processing" class="custom-control-input" {% if order.order_status == 'Processing' %}checked{% endif %}>
+                    <label class="custom-control-label" for="processing">Processing</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="shipped" name="order_status" value="Shipped" class="custom-control-input" {% if order.order_status == 'Shipped' %}checked{% endif %}>
+                    <label class="custom-control-label" for="shipped">Shipped</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="delivered" name="order_status" value="Delivered" class="custom-control-input" {% if order.order_status == 'Delivered' %}checked{% endif %}>
+                    <label class="custom-control-label" for="delivered">Delivered</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Status</button>
+        </form>
+    </div>
+
+</body>
+
+
+
+
+{% endblock %}

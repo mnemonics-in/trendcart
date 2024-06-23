@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container"  style="margin-bottom:150px">
+
+<div class="container mt-5">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr>
+          <th scope="col">Category Name</th>
+        <th scope="col">Sub Category Name</th>
+        <th scope="col">Sub Category Description</th>
+        <th scope="col">Sub Category Cover</th>
+           <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for i in v %}
+
+      <tr>
+          <td>{{i.maincategory}}</td>
+        <td>{{i.sname}}</td>
+        <td>{{i.sdesc}}</td>
+          <td><img src="{{i.simages.url}}" alt="Sub Category Cover" style="width: 50px; height: 50px;"></td>
+
+          <td><a href="{% url 'Category:updatesubcategory' i.id %}" class="btn btn-danger" >Edit</td>
+      </tr>
+{% endfor %}
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+
+{% endblock %}

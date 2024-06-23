@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1 class="text-center">Out of Stock Products</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Product ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in out_of_stock_products %}
+                    <tr>
+                        <th scope="row">{{ product.id }}</th>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.desc }}</td>
+                        <td>₹{{ product.price }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No out of stock products found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

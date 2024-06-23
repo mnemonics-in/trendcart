@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .form-title {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+         .product-bottom{
+        margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container product-bottom">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="form-container">
+                <h4 class="form-title text-center">Add Product</h4>
+                <form method="POST"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" class="form-control" id="productName" name="product_name" placeholder="Enter product name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Product Description</label>
+                        <input type="text"  maxlength="1000" minlength="10" class="form-control" placeholder="Enter Product Description" id="productDescription" name="product_description">
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Product Image</label>
+                        <input type="file" class="form-control-file" id="productImage" name="product_image" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Product Price</label>
+                        <input type="number" class="form-control" id="productPrice" name="product_price" placeholder="Enter product price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Product Category</label>
+                        <select class="form-control" id="productCategory" name="product_category" required>
+                            {% for i in sc %}
+                            <option value="{{i.id}}">{{i.sname}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Product Stock</label>
+                        <input type="number" class="form-control" id="productStock" name="product_stock" placeholder="Enter product stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productAvailable">Product Available</label>
+                        <select class="form-control" id="productAvailable" name="product_available" required>
+                            <option value="True">Yes</option>
+                            <option value="False">No</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

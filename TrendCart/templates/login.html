@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .bg {
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .login-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-form {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .login-form a {
+        margin-right: 10px;
+    }
+
+    .alert-custom-error {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<body>
+<div class="bg mb-5 mt-5">
+    <div class="container login-container">
+        <form class="login-form" method="POST">
+            {% csrf_token %}
+            <h2 class="text-center">Login</h2>
+
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                            <div class="alert alert-custom-error">{{ message }}</div>
+                        {% else %}
+                            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <div class="form-group mt-3">
+                <a href="{% url 'Email:password_reset_request' %}" class="float-left">Forgot password?</a>
+                <a href="{% url 'Accounts:signup' %}" class="float-right">New User? Create account</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+{% endblock %}
