@@ -39,6 +39,19 @@
         pointer-events: none;
         opacity: 0.65;
     }
+
+    .out-of-stock-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.75);
+        text-align: center;
+        line-height: 60px; /* Adjust based on .product-image height */
+        font-weight: bold;
+        color: red;
+    }
 </style>
 <body>
     <div class="container mt-4 mb-5">
@@ -46,47 +59,49 @@
         <a href="{% url 'Product:product_list' %}" class="btn btn-secondary mb-3">Back to Shopping</a>
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Image</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in cart_items %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-dark">
                             <tr>
-                                <td class="product-container">
-                                    {% if item.product.stock == 0 %}
-                                        <div class="out-of-stock-overlay">Out of Stock</div>
-                                    {% endif %}
-                                    <img src="{{ item.product.images.url }}" class="product-image {% if item.product.stock == 0 %}disabled{% endif %}" alt="{{ item.product.name }}">
-                                </td>
-                                <td class="{% if item.product.stock == 0 %}disabled{% endif %}">{{ item.product.name }}</td>
-                                <td>
-                                    <form method="post" action="{% url 'Cart:update_cart' item.id %}" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" name="action" value="decrease" class="btn btn-sm btn-warning me-1" {% if item.quantity <= 1 or item.product.stock == 0 %}disabled{% endif %}>-</button>
-                                        <span class="align-middle {% if item.product.stock == 0 %}disabled{% endif %}">{{ item.quantity }}</span>
-                                        <button type="submit" name="action" value="increase" class="btn btn-sm btn-success ms-1" {% if item.quantity >= item.product.stock or item.product.stock == 0 %}disabled{% endif %}>+</button>
-                                    </form>
-                                </td>
-                                <td class="{% if item.product.stock == 0 %}disabled{% endif %}">₹{{ item.product.price|floatformat:2 }}</td>
-                                <td class="{% if item.product.stock == 0 %}disabled{% endif %}">₹{{ item.quantity|multiply:item.product.price|floatformat:2 }}</td>
-                                <td>
-                                    <form method="post" action="{% url 'Cart:remove_from_cart' item.id %}" class="d-inline">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                    </form>
-                                </td>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Actions</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                                <tr>
+                                    <td class="product-container">
+                                        {% if item.product.stock == 0 %}
+                                            <div class="out-of-stock-overlay">Out of Stock</div>
+                                        {% endif %}
+                                        <img src="{{ item.product.images.url }}" class="product-image {% if item.product.stock == 0 %}disabled{% endif %}" alt="{{ item.product.name }}">
+                                    </td>
+                                    <td class="{% if item.product.stock == 0 %}disabled{% endif %}">{{ item.product.name }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'Cart:update_cart' item.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" name="action" value="decrease" class="btn btn-sm btn-warning me-1" {% if item.quantity <= 1 or item.product.stock == 0 %}disabled{% endif %}>-</button>
+                                            <span class="align-middle {% if item.product.stock == 0 %}disabled{% endif %}">{{ item.quantity }}</span>
+                                            <button type="submit" name="action" value="increase" class="btn btn-sm btn-success ms-1" {% if item.quantity >= item.product.stock or item.product.stock == 0 %}disabled{% endif %}>+</button>
+                                        </form>
+                                    </td>
+                                    <td class="{% if item.product.stock == 0 %}disabled{% endif %}">₹{{ item.product.price|floatformat:2 }}</td>
+                                    <td class="{% if item.product.stock == 0 %}disabled{% endif %}">₹{{ item.quantity|multiply:item.product.price|floatformat:2 }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'Cart:remove_from_cart' item.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <h3>Total Price: ₹{{ total_price|floatformat:2 }}</h3>
